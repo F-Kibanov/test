@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Order list
+{% endblock %}
+
+{% block content %}
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Сумма</th>
+        <th>Статус</th>
+        <th>ID реквизитов</th>
+    </tr>
+    {% for order in page_obj %}
+    <tr>
+        <td>{{ order.id }}</td>
+        <td>{{ order.summ }}</td>
+        <td>{{ order.status }}</td>
+        <td>{{ order.requisite_id }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">First</a>
+            <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">Next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+        {% endif %}
+    </span>
+</div>
+{% endblock %}
